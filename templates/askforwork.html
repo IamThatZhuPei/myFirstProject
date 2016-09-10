@@ -1,0 +1,62 @@
+$def with(person,message)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>Work</title>
+    <link rel="stylesheet" href="/static/style/weui.css"/>
+    <link rel="stylesheet" href="/static/example.css"/>
+</head>
+<body ontouchstart>
+    <div class="hd">
+        <h1 class="page_title">验证个人信息</h1>
+    </div>
+    <div class="bd">
+        <form name="personmain" method="post">
+            <div class="weui_cells_title">请填写您的真实信息</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="perName" id="perName" placeholder="请输入真实姓名" value="$person.perName" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">身份证号</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="IDcardNo" id="IDcardNo" placeholder="请输入身份证号" minlength="18" maxlength="18" value="$person.IDcardNo" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_cells_tips">底部说明文字底部说明文字</div>
+            <div class="bd spacing">
+                <div class="button_sp_area">
+                    <button class="weui_btn weui_btn_plain_primary" id="Submit" name="Submit">提交</button>
+                </div>
+            </div>
+            <div class="weui_cells_tips"> </div>
+            <script type="text/javascript">
+                function closeDialog2(){
+                    document.getElementById("dialog2").style.display="none";
+                    $('dialog2').style = "display: none;";
+                }
+            </script>
+            $if message == '' :
+                <!--...-->
+            $else :
+                <div class="weui_dialog_alert" id="dialog2">
+                    <div class="weui_mask"></div>
+                    <div class="weui_dialog">
+                        <div class="weui_dialog_hd"><strong class="weui_dialog_title">失败</strong></div>
+                        <div class="weui_dialog_bd">$message</div>
+                        <div class="weui_dialog_ft">
+                            <a href="javascript:closeDialog2();" class="weui_btn_dialog primary">确定</a>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</body>
+</html>

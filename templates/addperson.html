@@ -1,0 +1,214 @@
+$def with(sInfo,works,person,message)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>Work</title>
+    <link rel="stylesheet" href="/static/style/weui.css"/>
+    <link rel="stylesheet" href="/static/example.css"/>
+</head>
+<body ontouchstart>
+    <div class="hd">
+        <h1 class="page_title">录入个人信息</h1>
+    </div>
+    <div class="bd">
+        <form name="personmain" method="post">
+            <div class="weui_cells_title">此处必须填，请填写真实信息
+                <br />
+            (我们绝对不会泄露你的信息的，真的~)</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="perName" id="perName" placeholder="请输入真实姓名" readonly="true" value="$person.perName" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">身份证号</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="IDcardNo" id="IDcardNo" placeholder="请输入身份证号" readonly="readonly" maxlength="18" value="$person.IDcardNo" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">手机号码</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="tel" pattern="[0-9]{11}" name="phoneNo" id="phoneNo" placeholder="请输入您的电话号码" value="$person.phoneNo" />
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells_title">可以不填，填了更好</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">住址</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="address" id="address" placeholder="请输入现在的住址" value="$person.address" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">户口</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="hukou" id="hukou" placeholder="请输入户口所在地" value="$person.hukou" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">出生地</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="birthPlace" id="birthPlace" placeholder="请输入出生地   虽然没什么用" value="$person.birthPlace" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">身高（cm）</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="number" pattern="[0-9]*" name="height" id="height" placeholder="请输入身高   也许有身高要求呢"  value="$person.height" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">性别</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="sex" id="sex">
+                            $if person.sex == 0 :
+                                <option value="0" selected="selected">女</option>
+                                <option value="1">男</option>
+                            $else:
+                                <option value="0">女</option>
+                                <option value="1" selected="selected">男</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">生日</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="date" name="birthDay" id="birthDay" value="$person.birthDay" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">是否结婚</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="isMarry" id="isMarry">
+                            $if person.isMarry == 0 :
+                                <option value="0" selected="selected">未婚</option>
+                                <option value="1">已婚</option>
+                            $else:
+                                <option value="0">未婚</option>
+                                <option value="1" selected="selected">已婚</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">受教育程度</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="education" id="education">
+                            $for i in range(len(sInfo.education)):
+                                $if i == person.education :
+                                    <option value=$i selected="selected">$sInfo.education[i]</option>
+                                $else: 
+                                    <option value=$i>$sInfo.education[i]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">学校</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="school" id="school" placeholder="请输入你的母校名称" value="$person.school" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">政治面貌</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="politicalStatus" id="politicalStatus">
+                            $for i in range(len(sInfo.politicalStatus)):
+                                $if i == person.politicalStatus :
+                                    <option value=$i selected="selected">$sInfo.politicalStatus[i]</option>
+                                $else: 
+                                    <option value=$i>$sInfo.politicalStatus[i]</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells_title">留一个常用的，说不定我们会给你介绍一份靠谱的好工作呢</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">邮箱</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="eMail" id="eMail" placeholder="请输入常用邮箱" value="$person.eMail" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">QQ</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="number" pattern="[0-9]*" name="qq" id="qq" placeholder="请输入您的QQ号" value="$person.qq" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">微信</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="wx" id="wx" placeholder="请输入您的微信号" value="$person.wx" />
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells_title">选择你期望从事的工作</div>
+            <div class="weui_cells weui_cells_checkbox">
+                $for work in works:
+                    $ sInfo.i += 1
+                    <label class="weui_cell weui_check_label" for=$sInfo.i>
+                        <div class="weui_cell_hd">
+                            $if work['work'] in person.work:
+                                <input type="checkbox" class="weui_check" name="work" id=$sInfo.i value=$work['work'] checked="checked">
+                            $else:
+                                <input type="checkbox" class="weui_check" name="work" id=$sInfo.i value=$work['work']>
+                            <i class="weui_icon_checked"></i>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>$work['work']</p>
+                        </div>
+                    </label>
+            </div>
+
+            <div class="weui_cells_title">自我介绍</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea class="weui_textarea" placeholder="请输入简单的自我介绍" name="introduce" maxlength="200" rows="4" onkeydown="textCounter(introduce)" onkeyup="textCounter(introduce)" value=$person.introduce ></textarea>
+                        <div class="weui_textarea_counter">
+                            <span id="tnum">0
+                            </span>/200
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="weui_cells_tips">底部说明文字底部说明文字</div>
+            <div class="bd spacing">
+                <div class="button_sp_area">
+                    <button class="weui_btn weui_btn_plain_primary" id="Submit" name="Submit">提交</button>
+                </div>
+            </div>
+            <div class="weui_cells_tips"> </div>
+            <script type="text/javascript">
+                function closeDialog2(){
+                    document.getElementById("dialog2").style.display="none";
+                    $('dialog2').style = "display: none;";
+                }
+                function textCounter(introduce){
+                    document.getElementById('tnum').innerHTML = introduce.value.length;
+                }
+            </script>
+            $if message == '' :
+                <!--...-->
+            $else :
+                <div class="weui_dialog_alert" id="dialog2">
+                    <div class="weui_mask"></div>
+                    <div class="weui_dialog">
+                        <div class="weui_dialog_hd"><strong class="weui_dialog_title">失败</strong></div>
+                        <div class="weui_dialog_bd">$message</div>
+                        <div class="weui_dialog_ft">
+                            <a href="javascript:closeDialog2();" class="weui_btn_dialog primary">确定</a>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</body>
+</html>

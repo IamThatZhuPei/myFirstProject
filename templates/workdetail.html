@@ -1,0 +1,64 @@
+$def with(sInfo,work)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>Work</title>
+    <link rel="stylesheet" href="/static/style/weui.css"/>
+    <link rel="stylesheet" href="/static/example.css"/>
+    <style type="text/css">
+        body.highlight
+        {
+        background-color:rgb(252,250,242)
+        }
+        p.highlight2
+        {
+        background-color:rgb(189,192,186)
+        }
+        p.highlight
+        {
+        background-color:rgb(218,201,166)
+        }
+        span.highlight{
+        color:#0C0C0C;
+        }
+    </style>
+    <script type="text/javascript">
+        function askwork(worktime){
+            self.location='askforwork?worktime=' + worktime; 
+        }
+    </script>
+</head>
+<body class="highlight" ontouchstart>
+    <div class="hd">
+        <h1 class="page_title">详细信息</h1>
+    </div>
+    <div class="bd">
+        <form name="personmain" method="post" enctype="multipart/form-data" action="">
+            <article class="weui_article">
+                <h1><p class="highlight"><span class="highlight">【$work.company】</span> 招聘 <span class="highlight">【$work.workname】</span></p></h1>
+                <section>
+                    <section>
+                        <p>
+                            <img src="/static/upload/$work.picture" alt="">
+                        </p>
+                        <p class="highlight">【公司简介】 $work.aboutcompany</p>
+                        <p class="highlight2">【招聘岗位】 $work.workname</p>
+                        <p class="highlight">【招聘人数】 $work.worknum</p>
+                        <p class="highlight2">【岗位介绍】 $work.aboutwork</p>
+                        <p class="highlight">【岗位薪资】 $work.salary</p>
+                        <p class="highlight2">【工作地点】 $work.workaddress</p>
+                        <p class="highlight">【截至时间】 $work.endtime</p>
+                    </section>
+                </section>
+            </article>
+            <div class="bd spacing">
+                <div class="button_sp_area">
+                    <a class="weui_btn weui_btn_plain_primary" onclick="javascript:askwork($work.createtime);" >申请此职位</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

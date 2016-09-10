@@ -1,0 +1,142 @@
+$def with(sInfo,works,work,message)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>Work</title>
+    <link rel="stylesheet" href="/static/style/weui.css"/>
+    <link rel="stylesheet" href="/static/example.css"/>
+</head>
+<body ontouchstart>
+    <div class="hd">
+        <h1 class="page_title">添加工作信息</h1>
+    </div>
+    <div class="bd">
+        <form name="personmain" method="post" enctype="multipart/form-data" action="">
+            <div class="weui_cells_title">选择工作岗位，如果没有请添加</div>
+            <div class="weui_cells weui_cells_radio">
+                $for w in works:
+                    $ sInfo.i += 1
+                    <label class="weui_cell weui_check_label" for="$sInfo.i">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>$w['work']</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            $if w['work'] in work.workname:
+                                <input type="radio" class="weui_check" value=$w['work'] name="workradio" id="$sInfo.i" checked="checked" />
+                                <span class="weui_icon_checked"></span>
+                            $else :
+                                <input type="radio" class="weui_check" value=$w['work'] name="workradio" id="$sInfo.i" />
+                                <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+            </div>
+
+
+            <div class="weui_cells_title">其他相关信息，请认真填写</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">招聘人数</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="number" name="worknum" id="worknum" placeholder="请输入招聘人数" value="$work.worknum" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">公司名称</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="company" id="company" placeholder="请输入公司名称" value="$work.company" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">公司图片$work.picture</label></div>
+                    <div class="weui_uploader_bd">
+                        $if work.picture != '':
+                            <ul class="weui_uploader_files">
+                                <li class="weui_uploader_file" style="background-image:url($sInfo.uploadpicdir + $work.picture)"></li>
+                            </ul>
+                        $else :
+                            
+                            <div class="weui_uploader_input_wrp">
+                                <input class="weui_uploader_input" type="file" name="picture" />
+                            </div>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">岗位薪资</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="salary" id="salary" placeholder="请输入薪资" value="$work.salary" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">工作地点</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" name="workaddress" id="workaddress" placeholder="请输入工作地址"  value="$work.workaddress" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">截至日期</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="date" name="endtime" id="endtime" value="$work.endtime" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_cells_title">公司简介</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea class="weui_textarea" placeholder="请输入简单的自我介绍" name="aboutcompany" maxlength="400" rows="4" onkeydown="textCounter(aboutcompany)" onkeyup="textCounter(aboutcompany)" value=$work.aboutcompany ></textarea>
+                        <div class="weui_textarea_counter">
+                            <span id="tnum">0
+                            </span>/400
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_cells_title">岗位简介</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea class="weui_textarea" placeholder="请输入简单的自我介绍" name="aboutwork" maxlength="400" rows="4" onkeydown="textCounter(aboutwork)" onkeyup="textCounter(aboutwork)" value=$work.aboutwork ></textarea>
+                        <div class="weui_textarea_counter">
+                            <span id="tnum">0
+                            </span>/400
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells_tips">底部说明文字底部说明文字</div>
+            <div class="bd spacing">
+                <div class="button_sp_area">
+                    <button class="weui_btn weui_btn_plain_primary" id="Submit" name="Submit">提交</button>
+                </div>
+            </div>
+            <div class="weui_cells_tips"> </div>
+            <script type="text/javascript">
+                function closeDialog2(){
+                    document.getElementById("dialog2").style.display="none";
+                    $('dialog2').style = "display: none;";
+                }
+                function textCounter(introduce){
+                    document.getElementById('tnum').innerHTML = introduce.value.length;
+                }
+            </script>
+            $if message == '' :
+                <!--...-->
+            $else :
+                <div class="weui_dialog_alert" id="dialog2">
+                    <div class="weui_mask"></div>
+                    <div class="weui_dialog">
+                        <div class="weui_dialog_hd"><strong class="weui_dialog_title">失败</strong></div>
+                        <div class="weui_dialog_bd">$message</div>
+                        <div class="weui_dialog_ft">
+                            <a href="javascript:closeDialog2();" class="weui_btn_dialog primary">确定</a>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</body>
+</html>
